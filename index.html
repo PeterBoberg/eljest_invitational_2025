@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eljest Invitational 2025</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Segoe UI', sans-serif;
+            color: #fff;
+            background: #000;
+            scroll-behavior: smooth;
+        }
+
+        /* Videon som bakgrund */
+        #bg-video {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Hero-content */
+        .content {
+            position: relative;
+            text-align: center;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            padding-top: 10vh;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+        }
+
+        h1 {
+            font-size: 4rem;
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .countdown {
+            font-size: 12vw;
+            font-weight: bold;
+            margin: 1rem 0;
+            white-space: nowrap;
+        }
+
+        /* Knappar */
+        .button-row {
+            margin-top: 2rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .scroll-button {
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #000;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .scroll-button:hover {
+            background: #ffd700;
+            color: #000;
+        }
+
+        /* Om tävlingen */
+        #about-section {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: left;
+            overflow: hidden; /* hindrar videon från att sticka ut */
+        }
+
+        #about-section .section-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        #about-section .content-box {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            line-height: 1.6;
+            font-size: 1.2rem;
+            color: #fff;
+            background: rgba(0, 0, 0, 0.2); /* gör texten mer läsbar */
+            padding: 2rem;
+            border-radius: 10px;
+        }
+
+        #about-section h2 {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        /* Sektion för deltagare */
+        #participants-section {
+            position: relative;
+            min-height: 100vh;
+            padding: 5rem 2rem;
+            text-align: center;
+            overflow: hidden; /* så videon inte sticker ut */
+        }
+
+        #participants-section .section-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        #participants-section .participants-box {
+            position: relative;
+            z-index: 1;
+            max-width: 1000px;
+            margin: auto;
+            background: rgba(0, 0, 0, 0.2); /* mörk overlay för läsbarhet */
+            padding: 2rem;
+            border-radius: 12px;
+        }
+
+        #participants-section h2 {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .card {
+            background: #222;
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card p {
+            margin: 0;
+            padding: 1rem;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+        }
+
+        .modal-content {
+            background: #fff;
+            color: #000;
+            border-radius: 10px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh; /* modal maxhöjd */
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden; /* för att hålla ordning */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-content img {
+            width: 100%;
+            max-height: 250px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        #modal-text {
+            margin-top: 1rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            text-align: left;
+            overflow-y: auto; /* gör texten scrollbar om den blir för lång */
+            flex-grow: 1; /* låter texten ta upp ledigt utrymme */
+        }
+
+        .close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #333;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<!-- Videobakgrund (måste ligga först för Firefox) -->
+<video autoplay muted loop playsinline id="bg-video">
+    <source src="golf.mp4" type="video/mp4">
+</video>
+
+<!-- Hero-content -->
+<div class="content">
+    <h1>Eljest Invitational 2025</h1>
+    <p>Täby | Start torsdag kl 22:00</p>
+    <div class="countdown" id="countdown">Laddar...</div>
+    <div class="button-row">
+        <button class="scroll-button" onclick="document.getElementById('about-section').scrollIntoView({behavior: 'smooth'})">
+            Om tävlingen
+        </button>
+        <button class="scroll-button" onclick="document.getElementById('participants-section').scrollIntoView({behavior: 'smooth'})">
+            Deltagare
+        </button>
+    </div>
+</div>
+
+<!-- Om tävlingen -->
+<section id="about-section">
+    <video autoplay muted loop playsinline class="section-video">
+        <source src="golf_2.mp4" type="video/mp4">
+    </video>
+    <div class="content-box">
+        <h2>Om tävlingen</h2>
+        <p>
+            Sedan 2017 har denna årliga tradition hållit stånd – en institution lika självklar som Systembolagets kö på en fredag, men med betydligt mer svordomar, sneda drives och tveksamma rullinjer
+            på greenerna.
+        <p>
+            Deltagarantalet fluktuerar som en börskurva i kris – vissa år trängs vi som under mellandagsrean på Ullared, andra år är det mer exklusivt än ett hemligt möte i Bilderberggruppen. Men
+            prestige, det finns alltid i överflöd.
+        <p>
+            Tre personer har lyckats vinna fler än en gång och därmed bildat en elitens elit – en klubb i klubben, ungefär som Illuminati fast med fulare kepsar och mer öl. Denna segrare-trio ser
+            givetvis ner på övriga dödliga deltagare med den sorts elegans som bara kommer från att ha lyckats hålla bollen i spel fler än tre hål i rad.
+        <p>
+            Det är en anrik tävling, så pass att den med lätthet skulle kunna jämföras med The Masters – om man blundar, håller för öronen och samtidigt dricker väldigt mycket whisky.
+
+            Kort sagt: det här är inte bara en golftävling. Det är en kamp om ära, odödlighet och framförallt rätten att håna sina vänner resten av året.
+    </div>
+</section>
+
+<!-- Deltagare-sektion -->
+<!-- Deltagare-sektion -->
+<section id="participants-section">
+    <video autoplay muted loop playsinline class="section-video">
+        <source src="golf_3.mp4" type="video/mp4">
+    </video>
+    <div class="participants-box">
+        <h2>Deltagare</h2>
+        <div class="grid">
+            <div class="card" onclick="openModal(this)">
+                <img src="peter_boberg.png" alt="Peter Boberg">
+                <p>Peter Boberg</p>
+            </div>
+            <div class="card" onclick="openModal(this)">
+                <img src="peter_nordseth.png" alt="Peter Nordseth">
+                <p>Peter Nordseth</p>
+            </div>
+            <div class="card" onclick="openModal(this)">
+                <img src="carl_malmer.png" alt="Carl Malmer">
+                <p>Carl Malmer</p>
+            </div>
+            <div class="card" onclick="openModal(this)">
+                <img src="per_stenbeck.png" alt="Per Stenbeck">
+                <p>Per Stenbeck</p>
+            </div>
+            <div class="card" onclick="openModal(this)">
+                <img src="stellan_nilsson.png" alt="Stellan Nilsson">
+                <p>Stellan Nilsson</p>
+            </div>
+            <div class="card" onclick="openModal(this)">
+                <img src="jonas_granbom.png" alt="Jonas Granbom">
+                <p>Jonas Granbom</p>
+            </div>
+            <div class="card" onclick="openModal(this)">
+                <img src="chris_granbom.png" alt="Christoffer Grambom">
+                <p>Christoffer Grambom</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Modal -->
+<div id="modal" class="modal" style="display:none;">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img id="modal-img" src="" alt="Deltagare">
+        <h3 id="modal-name"></h3>
+        <p id="modal-text"></p> <!-- <-- nytt ID för texten -->
+    </div>
+</div>
+
+
+<script>
+    const participantDescriptions = {
+        "Peter Boberg": `Peter har aldrig vunnit. Inte ens varit nära. Hans största bedrift är en hedervärd andraplats, som han gärna påminner om som om det vore en major-titel.
+
+	  Golfintresset? Nja, det ligger någonstans mellan “varför gör jag det här?” och “det är i alla fall bättre än att jobba”. Faktum är att han är näst minst intresserad av golf i hela startfältet – och det är en titel han bär med stolthet. 
+
+	  För honom handlar Eljest Invitational mindre om slag, puttar och greener, och mer om vad som händer utanför banan: maten, drycken och de tveksamma anekdoterna som ingen riktigt vill höra för tionde gången. 
+
+	  Men här kommer paradoxen: trots sitt ljumma intresse och obefintliga meritlista är han fullständigt livsfarlig på banan. Varför? För att varje sving är ett potentiellt mordförsök på bollar, buskar, publik och i värsta fall medspelare. Man spelar inte i samma boll som Peter – man överlever den.`,
+
+        "Peter Nordseth": `Om Eljest Invitational haft en kung, en enväldig härskare med järnhand och plasttrofé, så vore det Peter Nordseth. Han har flest vinster, aldrig missat ett enda år och dyker upp med samma självklarhet som pollen på våren. Kort sagt: han är tävlingen.
+
+Men låt oss vara ärliga: det här är ingen Tiger Woods vi pratar om. Snarare en ihärdig hobbyodlare som ibland lyckas få tomatplantan att överleva – men långt ifrån varje gång. För även Nordseth har haft sina år av svajiga slag, då segern halkat iväg till någon annan och han fått nöja sig med att muttra över ölen i klubbhuset.
+
+Tekniska tips? Nej tack. Peter skulle hellre anförtro sig åt sin egen golfbag än till någon levande människa. Faktum är att bagen sannolikt har mer känsla för sving än han själv. Men envishet slår elegans, och det vet Nordseth bättre än någon annan.
+
+Han är helt enkelt turneringens evighetsmaskin: inte alltid rätt, inte alltid säker – men alltid där, alltid med i toppen, och oftast tillräckligt bra för att reta gallfeber på alla andra.
+
+Kort sagt: Peter Nordseth bevisar att man inte behöver vara bäst på golf för att vinna – bara tillräckligt ofta bättre än de andra. `,
+        "Carl Malmer": `Carl har faktiskt vunnit Eljest Invitational. En gång. Kanske till och med två. Men det var så länge sedan att ingen riktigt minns – minst av allt Carl själv. Segern ligger gömd någonstans mellan VHS-band, Nokia 3310 och när folk fortfarande använde kontanter.
+
+Hans golfspel är däremot oförglömligt, men inte av rätt anledningar. För medan alla andra kämpar mot slicar och hookar, har Carl lyckats utveckla ett helt eget universum av bollbanor. När han slår iväg bollen böjer den sig på sätt som trotsar både fysikens lagar och allmän sunt förnuft. Einstein hade kallat det en anomali. Vi andra kallar det en livsfara.
+
+Det är som att varje slag är en audition till nästa säsong av Mythbusters: ingen vet vart bollen ska, bara att den definitivt inte följer reglerna för normal materia.
+
+Kort sagt: Carl Malmer må ha vunnit förr, men hans största bedrift idag är att gång på gång bevisa att naturlagarna är mer riktlinjer än regler.`,
+
+        "Per Stenbeck": `Per har aldrig vunnit Eljest Invitational, men han har varit där – flåsandes i bakhasorna likt en överambitiös tax som jagar en älg. Nära ibland, men aldrig riktigt framme.
+
+Ett tag lämnade han till och med tävlingen helt, med det poetiska avskedsbrevet: "Mitt hat för golfen är starkare än min kärlek till er kamrater." Shakespeare hade varit stolt, men klubben stod lika tom utan honom som driving rangen en regnig tisdag.
+
+Ändå står han nu åter i startfältet – trots sin avsky för sen och högljudd partymusik och 100 starköl. Man kan undra varför han utsätter sig. Kanske är det masochism, kanske en längtan efter självplågeri. Eller så gillar han bara att lida i stereo.`,
+
+        "Stellan Nilsson": "Beskrivning här...",
+        "Jonas Granbom": "Beskrivning här...",
+        "Christoffer Grambom": "Beskrivning här..."
+    };
+
+    // Nedräkning
+    function getNextThursdayAt22() {
+        const now = new Date();
+        const day = now.getDay();
+        const diff = (4 - day + 7) % 7 || 7;
+        return new Date(now.getFullYear(), now.getMonth(), now.getDate() + diff, 22, 0, 0);
+    }
+
+    const countdownElement = document.getElementById("countdown");
+    const targetDate = getNextThursdayAt22();
+
+    function updateCountdown() {
+        const now = new Date();
+        const timeLeft = targetDate - now;
+        if (timeLeft <= 0) {
+            countdownElement.innerHTML = "Eventet har börjat!";
+            return;
+        }
+        const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeLeft / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((timeLeft / (1000 * 60)) % 60);
+        const seconds = Math.floor((timeLeft / 1000) % 60);
+        countdownElement.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // Modal-funktioner
+    function openModal(card) {
+        const img = card.querySelector("img");
+        const name = card.querySelector("p").innerText;
+
+        document.getElementById('modal').style.display = 'flex';
+        document.getElementById('modal-name').innerText = name;
+        document.getElementById('modal-img').src = img.src;
+        document.getElementById('modal-text').innerText = participantDescriptions[name] || "Ingen beskrivning tillagd ännu.";
+    }
+
+    function closeModal() {
+        document.getElementById('modal').style.display = 'none';
+    }
+</script>
+</body>
+</html>
