@@ -235,6 +235,66 @@
             color: #333;
             cursor: pointer;
         }
+
+        /* Mobilanpassning */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            p {
+                font-size: 1rem;
+            }
+
+            .countdown {
+                font-size: 16vw; /* större men flexibelt på små skärmar */
+            }
+
+            .button-row {
+                flex-direction: column;
+                gap: 0.5rem;
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .scroll-button {
+                width: 100%;
+                font-size: 1rem;
+                padding: 0.8rem;
+            }
+
+            #about-section .content-box {
+                font-size: 1rem;
+                padding: 1rem;
+            }
+
+            #participants-section .participants-box {
+                padding: 1rem;
+            }
+
+            .grid {
+                grid-template-columns: 1fr; /* stapla korten på små skärmar */
+            }
+
+            .card img {
+                height: 150px;
+            }
+
+            .modal-content {
+                max-width: 95%;
+                max-height: 90vh;
+                padding: 1rem;
+            }
+
+            .modal-content img {
+                max-height: 180px;
+            }
+
+            #modal-text {
+                font-size: 0.9rem;
+            }
+        }
+
     </style>
 </head>
 <body>
