@@ -47,8 +47,9 @@
             margin-bottom: 1rem;
         }
 
+        /* 🔥 Uppdaterad countdown */
         .countdown {
-            font-size: clamp(1.5rem, 8vw, 5rem);
+            font-size: 12vw;       /* Stor på desktop, samma som innan */
             font-weight: bold;
             margin: 1rem 0;
             white-space: nowrap;
@@ -59,6 +60,7 @@
             margin-top: 2rem;
             display: flex;
             gap: 1rem;
+            flex-wrap: wrap;
         }
 
         .scroll-button {
@@ -86,7 +88,7 @@
             align-items: center;
             justify-content: center;
             text-align: left;
-            overflow: hidden; /* hindrar videon från att sticka ut */
+            overflow: hidden;
         }
 
         #about-section .section-video {
@@ -105,7 +107,7 @@
             line-height: 1.6;
             font-size: 1.2rem;
             color: #fff;
-            background: rgba(0, 0, 0, 0.2); /* gör texten mer läsbar */
+            background: rgba(0, 0, 0, 0.2);
             padding: 2rem;
             border-radius: 10px;
         }
@@ -122,7 +124,7 @@
             min-height: 100vh;
             padding: 5rem 2rem;
             text-align: center;
-            overflow: hidden; /* så videon inte sticker ut */
+            overflow: hidden;
         }
 
         #participants-section .section-video {
@@ -139,7 +141,7 @@
             z-index: 1;
             max-width: 1000px;
             margin: auto;
-            background: rgba(0, 0, 0, 0.2); /* mörk overlay för läsbarhet */
+            background: rgba(0, 0, 0, 0.2);
             padding: 2rem;
             border-radius: 12px;
         }
@@ -200,11 +202,11 @@
             border-radius: 10px;
             max-width: 600px;
             width: 90%;
-            max-height: 80vh; /* modal maxhöjd */
+            max-height: 80vh;
             padding: 2rem;
             text-align: center;
             position: relative;
-            overflow: hidden; /* för att hålla ordning */
+            overflow: hidden;
             display: flex;
             flex-direction: column;
         }
@@ -222,8 +224,8 @@
             font-size: 1rem;
             line-height: 1.5;
             text-align: left;
-            overflow-y: auto; /* gör texten scrollbar om den blir för lång */
-            flex-grow: 1; /* låter texten ta upp ledigt utrymme */
+            overflow-y: auto;
+            flex-grow: 1;
         }
 
         .close {
@@ -234,71 +236,29 @@
             font-weight: bold;
             color: #333;
             cursor: pointer;
-            z-index: 10; /* alltid överst */
+            z-index: 10;
         }
 
-
         /* Mobilanpassning */
-        @media (max-width: 768px) {
+        @media (max-width: 600px) {
             h1 {
-                font-size: 2.2rem;
+                font-size: 2.5rem;
             }
 
             p {
                 font-size: 1rem;
             }
 
-            .button-row {
-                flex-direction: column;
-                gap: 0.5rem;
-                width: 100%;
-                max-width: 300px;
+            .countdown {
+                font-size: 8vw;    /* Anpassad för mobil */
             }
 
-            .scroll-button {
-                width: 100%;
-                font-size: 1rem;
-                padding: 0.8rem;
-            }
-
-            #about-section .content-box {
-                font-size: 1rem;
-                padding: 1rem;
-            }
-
+            #about-section .content-box,
             #participants-section .participants-box {
                 padding: 1rem;
-            }
-
-            .grid {
-                grid-template-columns: 1fr; /* stapla korten på små skärmar */
-            }
-
-            .card img {
-                height: 150px;
-            }
-
-            .modal-content {
-                max-width: 95%;
-                max-height: 90vh;
-                padding: 1rem;
-            }
-
-            .modal-content img {
-                max-height: 180px;
-            }
-
-            #modal-text {
-                font-size: 0.9rem;
-            }
-
-            .close {
-                top: 0.2rem;
-                right: 0.2rem;
-                font-size: 2.5rem;
+                font-size: 1rem;
             }
         }
-
     </style>
 </head>
 <body>
