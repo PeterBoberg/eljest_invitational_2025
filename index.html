@@ -352,21 +352,38 @@
     <div class="modal-content">
         <span class="close" onclick="closeModal()">&times;</span>
         <img id="modal-img" src="" alt="Deltagare">
-        <h3 id="modal-name"></h3>
-        <p id="modal-text"></p> <!-- <-- nytt ID för texten -->
+
+        <!-- Rubrik med namn + titel -->
+        <h2 id="modal-title"></h2>
+
+        <p id="modal-text"></p>
     </div>
 </div>
 
-
 <script>
+
+    const participantTitles = {
+        "Peter Boberg": "Peter Boberg – Grundaren",
+        "Peter Nordseth": "Peter Nordseth – Evighetsmaskinen",
+        "Carl Malmer": "Carl Malmer – Fysikens Fiende",
+        "Per Stenbeck": "Per Stenbeck – Den Motvillige Romantikern",
+        "Stellan Nilsson": "Stellan Nilsson – Comeback Kid",
+        "Jonas Granbom": "Jonas Granbom – Pedant med Bunkerboogie",
+        "Christoffer Granbom": "Christoffer Granbom – Sovandes genom Historien"
+    };
+
+
+
     const participantDescriptions = {
-        "Peter Boberg": `Peter har aldrig vunnit. Inte ens varit nära. Hans största bedrift är en hedervärd andraplats, som han gärna påminner om som om det vore en major-titel.
+        "Peter Boberg": `Peter, den ursprungliga grundaren av detta ärorika event, vars fackla han sedan många förluster lämnat över till Peter Nordseth likt en trött maratonlöpare som snubblar in på stadion och lämnar stafettpinnen till någon som faktiskt kan springa.
 
-	  Golfintresset? Nja, det ligger någonstans mellan “varför gör jag det här?” och “det är i alla fall bättre än att jobba”. Faktum är att han är näst minst intresserad av golf i hela startfältet – och det är en titel han bär med stolthet. 
+Vunnit? Nej. Aldrig. Men han har kommit tvåa, och den bedriften betraktar han ungefär som andra skulle betrakta en major-titel. Det nämns gärna, ofta och alltid med en ton som antyder att det var ett ögonblick av odödlighet.
 
-	  För honom handlar Eljest Invitational mindre om slag, puttar och greener, och mer om vad som händer utanför banan: maten, drycken och de tveksamma anekdoterna som ingen riktigt vill höra för tionde gången. 
+Peter är en livsfarlig motståndare, men inte av de anledningarna ni tror. Det är inte hans precision eller teknik som skrämmer – det är hans slicar. De kan dyka upp var som helst, när som helst – som en dålig ursäkt när man frågar varför scoren inte stämmer. Att spela i samma boll som Boberg är som att ställa sig bakom en fyrverkeripjäs på nyår och hoppas på det bästa.
 
-	  Men här kommer paradoxen: trots sitt ljumma intresse och obefintliga meritlista är han fullständigt livsfarlig på banan. Varför? För att varje sving är ett potentiellt mordförsök på bollar, buskar, publik och i värsta fall medspelare. Man spelar inte i samma boll som Peter – man överlever den.`,
+Hans strategi numera? Att visa sig i form genom att spela två till fyra rundor per år. Resten av tiden nöjer han sig med att betrakta golf som ett abstrakt begrepp – något som existerar mer i teorin, i barens filosofiska samtal, än på själva banan.
+
+Kort sagt: Peter Boberg är inte här för att vinna – han är här för att påminna oss om att golf är farligt, underligt och allra bäst när det sker utanför banan.`,
 
         "Peter Nordseth": `Om Eljest Invitational haft en kung, en enväldig härskare med järnhand och plasttrofé, så vore det Peter Nordseth. Han har flest vinster, aldrig missat ett enda år och dyker upp med samma självklarhet som pollen på våren. Kort sagt: han är tävlingen.
 
@@ -444,13 +461,18 @@ Kort sagt: Christoffer Granbom är brödraskapets storebror, alltid sist i säng
 
     // Modal-funktioner
     function openModal(card) {
-        const img = card.querySelector("img");
         const name = card.querySelector("p").innerText;
+        const imgSrc = card.querySelector("img").src;
 
-        document.getElementById('modal').style.display = 'flex';
-        document.getElementById('modal-name').innerText = name;
-        document.getElementById('modal-img').src = img.src;
-        document.getElementById('modal-text').innerText = participantDescriptions[name] || "Ingen beskrivning tillagd ännu.";
+        const title = participantTitles[name] || name;
+        const text = participantDescriptions[name] || "Ingen beskrivning tillagd ännu.";
+
+        document.getElementById("modal-title").innerText = title;
+        document.getElementById("modal-text").innerText = text;
+        document.getElementById("modal-img").src = imgSrc;
+
+        // 🔥 Viktigt: använd flex för att centrera
+        document.getElementById("modal").style.display = "flex";
     }
 
     function closeModal() {
